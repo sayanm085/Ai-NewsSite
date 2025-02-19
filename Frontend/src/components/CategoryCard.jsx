@@ -1,18 +1,44 @@
-import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
+import React from 'react'
 
-export default function CategoryCard({ category }) {
+export default function CategoryCard() {
+  // Example category data
+  const categories = [
+    'Automotive',
+    'Entertainment',
+    'Gaming',
+    'Hobbies',
+    'Lifestyle',
+    'Pet Care',
+    'Science',
+    'Social Issues',
+    'Technology',
+    'Travel & Culture',
+    'Work Life',
+  ]
+
   return (
-    <Link to={`/categories?category=${category.slug}`}>
-      <Card className="overflow-hidden hover:shadow-lg transition">
-        <CardHeader>
-          <CardTitle className="text-xl font-bold">{category.name}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-600">{category.description}</p>
-        </CardContent>
-      </Card>
-    </Link>
-  );
+    <section className="w-full">
+
+      {/* Category Pills */}
+      <div className="bg-white py-10 flex flex-wrap items-center justify-center gap-4">
+        {categories.map((cat) => (
+          <div
+            key={cat}
+            className="
+              px-4 py-2 
+              border border-gray-300 
+              rounded-full 
+              text-sm 
+              text-gray-700 
+              cursor-pointer 
+              hover:bg-gray-100 
+              transition
+            "
+          >
+            {cat}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
 }

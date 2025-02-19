@@ -1,3 +1,5 @@
+// src/pages/Articles.jsx
+
 import React from 'react';
 import Layout from '../components/Layout';
 import ArticleCard from '../components/ArticleCard';

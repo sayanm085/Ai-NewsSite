@@ -2,6 +2,9 @@ import React from 'react';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 import ArticleCard from '../components/ArticleCard';
+import CategoryCard from '../components/CategoryCard'
+import RecentBlogs from "@/components/RecentBlogs"
+import PopularBlogs from "@/components/PopularBlogs"
 import { useQuery } from '@tanstack/react-query';
 
 async function fetchFeaturedArticles() {
@@ -27,6 +30,13 @@ export default function Home() {
   return (
     <Layout>
       <Hero />
+      <RecentBlogs />
+      <div className='flex justify-center items-center flex-col px-4 py-12'>
+        <h1 className="text-5xl font-bold mb-6">AI News Categories</h1>
+        <CategoryCard />
+      </div>
+
+      
       <section className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl font-bold mb-6">Featured Articles</h2>
         {isLoading && <p>Loading articles...</p>}
@@ -39,6 +49,8 @@ export default function Home() {
           </div>
         )}
       </section>
+
+     <PopularBlogs />
     </Layout>
   );
 }

@@ -1,56 +1,66 @@
-import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 export default function ArticleCard({ article }) {
-  const [likes, setLikes] = useState(article.initialLikes || 0);
-
-  const handleLike = () => {
-    setLikes(prev => prev + 1);
-  };
-
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.origin + `/blog/${article.id}`);
-    alert('Article link copied to clipboard!');
-  };
+  // Example fields: article.category, article.date, article.readTime
+  // If your data is different, adjust accordingly.
 
   return (
-    <Card className="overflow-hidden shadow hover:shadow-lg transition">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">{article.title}</CardTitle>
-        <CardDescription className="flex flex-wrap gap-2 text-sm text-gray-500">
-          {article.tags?.map((tag, idx) => (
-            <span key={idx} className="px-2 py-1 bg-gray-200 rounded-md">
-              {tag}
-            </span>
-          ))}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <Card className="shadow-sm hover:shadow-md transition rounded-md">
+      {/* Image + Category Pill */}
+      <CardHeader className="relative p-0">
         {article.img && (
           <img
             src={article.img}
             alt={article.title}
-            className="w-full h-48 object-cover rounded-md mb-3"
+            className="w-full h-44 object-cover rounded-t-md"
           />
         )}
-        <p className="text-gray-700">{article.body?.slice(0, 100)}...</p>
-        <p className="mt-2 text-xs text-gray-400">Uploaded on: {article.uploadDate}</p>
+        {/* Category Pill (if you have article.category) */}
+        {article.category && (
+          <span className="absolute top-2 left-2 bg-white text-black text-xs font-medium px-2 py-1 rounded shadow-sm">
+            {article.category}
+          </span>
+        )}
+      </CardHeader>
+
+      {/* Title + Date/Read Time + Snippet */}
+      <CardContent className="p-4">
+        <CardTitle className="text-base font-semibold leading-tight mb-2">
+          {article.title}
+        </CardTitle>
+
+        {/* Date & Read Time (adjust to your data) */}
+        {article.date && article.readTime && (
+          <p className="text-xs text-gray-500 mb-2">
+            {article.date} <span className="mx-1">•</span> {article.readTime}
+          </p>
+        )}
+
+        {/* Body snippet */}
+        {article.body && (
+          <p className="text-sm text-gray-600">
+            {article.body.slice(0, 100)}...
+          </p>
+        )}
       </CardContent>
-      <CardFooter className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Button variant="secondary" onClick={handleLike}>
-            Like ({likes})
-          </Button>
-          <Button variant="outline" onClick={handleShare}>
-            Share
-          </Button>
-        </div>
+
+      {/* "Read more" Button */}
+      <CardFooter className="p-4">
         <Link to={`/blog/${article.id}`}>
-          <Button>Read More</Button>
+          <Button variant="outline" className="text-sm">
+            Read more
+          </Button>
         </Link>
       </CardFooter>
     </Card>
-  );
+  )
 }
